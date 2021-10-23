@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">projetct_mvvm</string>
+    <string name="no_result_found">NO RESULT FOUND</string>
+    <string name="clicked_movie_param">Clicked Movie Name is : %s</string>
+</resources>
