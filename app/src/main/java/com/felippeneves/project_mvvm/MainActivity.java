@@ -11,17 +11,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.felippeneves.project_mvvm.adapter.MovieListAdapter;
-import com.felippeneves.project_mvvm.model.MovieModel;
-import com.felippeneves.project_mvvm.viewmodel.MovieListViewModel;
+import com.felippeneves.project_mvvm.adapter.UniversityListAdapter;
+import com.felippeneves.project_mvvm.model.UniversityModel;
+import com.felippeneves.project_mvvm.viewmodel.UniversityListViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MovieListAdapter.ItemClickListener {
+public class MainActivity extends AppCompatActivity implements UniversityListAdapter.ItemClickListener {
 
-    private List<MovieModel> movieModelList;
-    private MovieListAdapter adapter;
-    private MovieListViewModel viewModel;
+    private UniversityListAdapter adapter;
+    private UniversityListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +34,16 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private void initializeScreen() {
         RecyclerView recyclerView = findViewById(R.id.rvInformations);
         final AppCompatTextView tvNoResult = findViewById(R.id.tvNoResult);
-        LinearLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        LinearLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter =  new MovieListAdapter(this, movieModelList, this);
+        adapter =  new UniversityListAdapter(this, new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
         //
-        viewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(UniversityListViewModel.class);
 
-        viewModel.getMoviesListObserver().observe(this, movieModels -> {
-            if(movieModels != null) {
-                movieModelList = movieModels;
-                adapter.setMovieList(movieModels);
+        viewModel.getListUniversitiesObserver().observe(this, model -> {
+            if(model != null) {
+                adapter.setListUniversities(model);
                 tvNoResult.setVisibility(View.GONE);
             } else {
                 tvNoResult.setVisibility(View.VISIBLE);
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     }
 
     @Override
-    public void onMovieClick(MovieModel movie) {
-        Toast.makeText(this, String.format(getString(R.string.clicked_movie_param), movie.getTitle()), Toast.LENGTH_SHORT).show();
+    public void onUniversityClick(UniversityModel model) {
+        Toast.makeText(this, String.format(getString(R.string.clicked_university_param), model.getName()), Toast.LENGTH_SHORT).show();
     }
 }

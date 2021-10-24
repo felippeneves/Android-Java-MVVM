@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroInstance {
-    public static String BASE_URL = "https://velmm.com/apis/";//volley_array.json
+    public static String BASE_URL = "http://universities.hipolabs.com/";
 
     private static Retrofit retrofit;
 
